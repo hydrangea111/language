@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>일본어·중국어 학습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;900&family=Noto+Serif+SC:wght@400;600;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/lang.css">
+</head>
+<body class="lang-ja">
+<script src="js/storage-bridge.js"></script>
+
+<script src="js/lang-switch.js"></script>
+
+<div class="langbar"><div class="wrap">
+  <button data-lang="ja" aria-pressed="true">일본어</button>
+  <button data-lang="zh" aria-pressed="false">중국어</button>
+  <button data-lang="es" aria-pressed="false">스페인어</button>
+</div></div>
+<div class="wrap"><header><h1 id="title"></h1><div class="sub" id="sub"></div></header></div>
+<div class="wrap">
+  <div class="tabs" id="main"></div>
+  <div id="context"></div>
+  <div class="tabs" id="modes"></div>
+  <div id="stage"></div>
+</div>
+<div class="foot"><div class="wrap" id="foot"></div></div>
+
+<script src="js/lang.js"></script>
+</body>
+</html>

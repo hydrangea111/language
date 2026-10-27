@@ -1,0 +1,26 @@
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%;overflow:hidden;background:#FFFFFF}
+body{font-family:'Noto Sans KR',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Malgun Gothic',sans-serif}
+#shell{display:flex;flex-direction:column;height:100dvh;height:100vh}
+
+/* 탭 막대: 흰 바탕 + 얇은 선 + 밑줄로 현재 탭 표시 */
+#tabbar{flex:0 0 auto;background:rgba(255,255,255,.94);border-bottom:1px solid #E4E4E7;
+  backdrop-filter:blur(8px)}
+#tabbar .wrap{max-width:520px;margin:0 auto;padding:0 14px;display:flex;gap:2px}
+#tabbar button{flex:1;padding:14px 4px 12px;font-size:14px;font-weight:600;
+  background:none;border:none;border-bottom:2px solid transparent;border-radius:0;
+  color:#6B6E76;cursor:pointer;font-family:inherit;
+  transition:color .15s,border-color .15s}
+#tabbar button:hover{color:#111214}
+#tabbar button[aria-pressed="true"]{color:var(--c);border-bottom-color:var(--c)}
+#tabbar button:focus-visible{outline:2px solid var(--c);outline-offset:-4px;border-radius:6px}
+
+/* 탭별 포인트 색 (한자·일본어·중국어·스페인어를 구분) */
+#tabbar button[data-tab="hanja"]{--c:#4F7C6E}
+#tabbar button[data-tab="ja"]{--c:#2F5D8C}
+#tabbar button[data-tab="zh"]{--c:#A8362B}
+#tabbar button[data-tab="es"]{--c:#C77A1E}
+
+#panes{flex:1 1 auto;position:relative;min-height:0}
+#panes iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:none;background:#FFFFFF}
+#panes iframe.on{display:block}

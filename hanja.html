@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>한자 한 자</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;900&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hanja.css">
+</head>
+<body>
+<script src="js/storage-bridge.js"></script>
+
+<div class="wrap">
+  <header><h1><span class="han">漢</span>한자 한 자</h1><div class="sub" id="sub"></div></header>
+</div>
+<div class="wrap"><div class="scroller" id="levels"></div></div>
+<div class="wrap">
+  <div class="modebar" id="modebar">
+    <button data-mode="card" aria-pressed="true">카드</button>
+    <button data-mode="stroke">획순</button>
+    <button data-mode="quiz">문제</button>
+    <button data-mode="exam">모의고사</button>
+    <button data-mode="find">찾기</button>
+  </div>
+  <div id="context"></div>
+  <div id="stage"></div>
+</div>
+<div class="foot"><div class="wrap" id="foot"></div></div>
+
+<script src="js/hanja.js"></script>
+</body>
+</html>
