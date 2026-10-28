@@ -1,3 +1,15 @@
+// 기계번역한 한국어 뜻·예문 번역(data/ko-<언어>.json)을 AI 맵에 채운다. 사용자가 저장한 번역이 있으면 그것이 우선한다.
+async function mergeKo(lang, AI){
+  try{
+    const r = await fetch('data/ko-' + lang + '.json');
+    if(!r.ok) return;
+    const rows = await r.json();
+    for(let i = 0; i < rows.length; i++){
+      if(AI[i] || !(rows[i][0] || rows[i][1])) continue;
+      AI[i] = {kr: rows[i][0], exKr: rows[i][1]};
+    }
+  }catch(e){ /* 파일이 없으면 영어 뜻 그대로 */ }
+}
 (function(){
 const LANG='ja';
 
@@ -540,6 +552,7 @@ document.addEventListener('touchend',e=>{ if(window.__ACTIVE!==LANG) return;
 async function init(){
   known=(await store.get('ja:known'))||{};
   AI=(await store.get('ja:trmap'))||{};
+  await mergeKo('ja', AI);
   const last=await store.get('ja:last');
   if(last){ Object.assign(S,{main:last.main||'kana',kind:last.kind||'hira',kset:last.kset||'seion',
     cat:CATS.includes(last.cat)?last.cat:CATS[0],axis:last.axis||'jlpt',lvl:last.lvl??5,mode:last.mode||'chart'}); }
@@ -979,6 +992,7 @@ document.addEventListener('touchend',e=>{ if(window.__ACTIVE!==LANG) return;
 async function init(){
   known=(await store.get('zh:known'))||{};
   AI=(await store.get('zh:trmap'))||{};
+  await mergeKo('zh', AI);
   const last=await store.get('zh:last');
   if(last){ Object.assign(S,{main:last.main||'hanzi',lvl:last.lvl||1,mode:last.mode||'card',
     wcat:WCATS.includes(last.wcat)?last.wcat:WCATS[0], gcat:GCATS.includes(last.gcat)?last.gcat:GCATS[0]}); }
@@ -1273,6 +1287,7 @@ document.addEventListener('touchend',e=>{ if(window.__ACTIVE!==LANG) return;
 async function init(){
   known=(await store.get('es:known'))||{};
   AI=(await store.get('es:trmap'))||{};
+  await mergeKo('es', AI);
   const last=await store.get('es:last');
   if(last){ Object.assign(S,{main:last.main||'hanzi',lvl:last.lvl||1,mode:last.mode||'card',
     wcat:WCATS.includes(last.wcat)?last.wcat:WCATS[0], gcat:GCATS.includes(last.gcat)?last.gcat:GCATS[0]}); }

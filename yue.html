@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>광동어 학습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+HK:wght@400;600&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/hanja.css">
+<link rel="stylesheet" href="css/yue.css">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1><span class="han">粵</span>광동어</h1>
+    <div class="sub" id="sub"></div>
+  </header>
+  <div class="modebar" id="main" role="tablist" aria-label="학습 종류"></div>
+  <div class="scroller" id="tiers" aria-label="등급"></div>
+  <div class="modebar" id="modes" aria-label="학습 방식"></div>
+  <div class="metarow"><span id="metaL"></span><span id="metaR"></span></div>
+  <div class="meter"><i id="bar"></i></div>
+  <main id="view"></main>
+  <p class="credit">한국어 뜻과 번역은 <b>기계번역</b>이고, 예문의 발음(Jyutping)은 자동으로 만든 참고용입니다.
+    자료 출처: <a href="https://cantonese.org/" target="_blank" rel="noopener">CC-Canto</a> (CC BY-SA 3.0),
+    <a href="https://tatoeba.org/" target="_blank" rel="noopener">Tatoeba</a> (CC BY 2.0 FR),
+    <a href="https://www.unicode.org/charts/unihan.html" target="_blank" rel="noopener">Unicode Unihan</a>.</p>
+</div>
+<div class="foot" id="foot" hidden><div class="wrap" id="footBtns"></div></div>
+<script src="js/yue.js"></script>
+</body>
+</html>

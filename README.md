@@ -22,3 +22,11 @@
 ```
 python -m http.server
 ```
+
+## 광동어 탭과 한국어 뜻
+
+- `yue.html` + `js/yue.js` + `css/yue.css`: 광동어 탭. 한자·단어·예문을 카드, 문제, 목록으로 학습합니다. 처음 열 때만 `data/yue-*.json`을 내려받습니다.
+- 자료: [CC-Canto](https://cantonese.org/) (CC BY-SA 3.0), [Tatoeba](https://tatoeba.org/) (CC BY 2.0 FR), Unicode Unihan. 예문의 Jyutping은 자동 생성한 참고용입니다.
+- `data/ko-ja|zh|es.json`: 기존 일본어·중국어·스페인어 어휘의 한국어 뜻과 예문 번역(기계번역). 사용자가 저장한 번역이 있으면 그쪽이 우선합니다.
+- 번역은 오프라인 모델(NLLB-200 distilled 600M)로 만들었고, `tools/ko_overrides.json`으로 눈에 띄는 오역을 고쳤습니다. 다시 만들 때는 `tools/translate_ko.py`를 씁니다. 모델 라이선스는 CC-BY-NC입니다.
+- 학습 기록은 브라우저 `localStorage`에 저장됩니다(`language:` 접두사).
