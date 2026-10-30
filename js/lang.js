@@ -88,10 +88,7 @@ function drawContext(){
       <div class="scroller">${KSET.map(([v,n])=>`<button class="chip" data-kset="${v}" aria-pressed="${v===S.kset}"><span class="dot"></span>${n}<span class="n">${(KANA[v]||[]).reduce((a,r)=>a+r[1].length,0)}자</span></button>`).join('')}</div>`;
   } else if(S.main==='bank'){
     const doneCount=Object.keys(AI).length, allDone=doneCount>=BANK.length;
-    html=`<div class="scroller">${TIERS.map(t=>`<button class="chip" data-tier="${t}" aria-pressed="${t===S.tier}" style="--c:${RAMP[(t-1)%RAMP.length]}"><span class="dot"></span>${(t-1)*500+1}–${t*500}위<span class="n">${BANK.filter(b=>b[B.T]===t).length}</span></button>`).join('')}</div>
-      <div class="metarow"><span>AI 번역 진행</span><span><b>${doneCount.toLocaleString()}</b> / ${BANK.length.toLocaleString()}</span></div>
-      <div class="meter"><i style="width:${BANK.length?doneCount/BANK.length*100:0}%"></i></div>
-      <button class="btn ${translating?'ghost':'solid'}" id="trbtn" style="margin-bottom:10px" ${(!translating&&allDone)?'disabled':''}>${translating?'번역 중지 ⏸':(allDone?'번역 완료 ✓':'AI로 뜻·예문 채우기 ▶')}</button>`;
+    html=`<div class="scroller">${TIERS.map(t=>`<button class="chip" data-tier="${t}" aria-pressed="${t===S.tier}" style="--c:${RAMP[(t-1)%RAMP.length]}"><span class="dot"></span>${(t-1)*500+1}–${t*500}위<span class="n">${BANK.filter(b=>b[B.T]===t).length}</span></button>`).join('')}</div>`;
   } else if(S.main==='word'){
     html=`<div class="scroller">${CATS.map((k,i)=>`<button class="chip" data-cat="${esc(k)}" aria-pressed="${k===S.cat}" style="--c:${RAMP[i%RAMP.length]}"><span class="dot"></span>${esc(k)}<span class="n">${VOCAB[k].length}</span></button>`).join('')}</div>`;
   } else {
@@ -270,7 +267,7 @@ function renderCard(){
       ${it.ks?`<span class="kr">한자음 ${esc(it.ks)}</span>`:''}
       <span class="mean" style="font-size:17px">${esc(it.m)}</span>
       ${it.ex?`<div class="ex"><div class="s">${esc(it.ex.ex)}</div><div class="p">${esc(it.ex.exY)}</div><div class="m">${it.ex.exKr?esc(it.ex.exKr):'<span style=\'opacity:.5\'>예문 번역 대기 중 — AI 번역을 돌려 보세요</span>'}</div></div>`
-             :`<div class="note" style="font-size:11.5px">이 단어는 예문 말뭉치에 없어요. AI 번역을 돌리면 새로 만들어 드려요.</div>`}
+             :`<div class="note" style="font-size:11.5px">이 단어는 예문이 없어요.</div>`}
       <span class="hint">눌러서 단어 보기</span>`;
   } else if(S.main==='word'){
     front=`<span class="word">${esc(it.w)}</span><span class="hint">눌러서 읽기·뜻 보기</span>`;
@@ -620,10 +617,7 @@ function drawContext(){
     html=`<div class="scroller">${HSK.map(v=>`<button class="chip" data-lvl="${v}" aria-pressed="${v===S.lvl}" style="--c:${RAMP[(v-1)%RAMP.length]}"><span class="dot"></span>HSK ${v}<span class="n">${HANZI.filter(h=>h[H.LV]===v).length}</span></button>`).join('')}</div>`;
   } else if(S.main==='bank'){
     const doneCount=Object.keys(AI).length, allDone=doneCount>=BANK.length;
-    html=`<div class="scroller">${[1,2,3,4,5,6].map(v=>`<button class="chip" data-blv="${v}" aria-pressed="${v===S.blv}" style="--c:${RAMP[(v-1)%RAMP.length]}"><span class="dot"></span>HSK ${v}<span class="n">${BANK.filter(b=>b[B.LV]===v).length}</span></button>`).join('')}</div>
-      <div class="metarow"><span>AI 번역 진행</span><span><b>${doneCount.toLocaleString()}</b> / ${BANK.length.toLocaleString()}</span></div>
-      <div class="meter"><i style="width:${BANK.length?doneCount/BANK.length*100:0}%"></i></div>
-      <button class="btn ${translating?'ghost':'solid'}" id="trbtn" style="margin-bottom:10px" ${(!translating&&allDone)?'disabled':''}>${translating?'번역 중지 ⏸':(allDone?'번역 완료 ✓':'AI로 뜻·예문 채우기 ▶')}</button>`;
+    html=`<div class="scroller">${[1,2,3,4,5,6].map(v=>`<button class="chip" data-blv="${v}" aria-pressed="${v===S.blv}" style="--c:${RAMP[(v-1)%RAMP.length]}"><span class="dot"></span>HSK ${v}<span class="n">${BANK.filter(b=>b[B.LV]===v).length}</span></button>`).join('')}</div>`;
   } else {
     const list=S.main==='word'?WCATS:GCATS, key=S.main==='word'?'wcat':'gcat';
     html=`<div class="scroller">${list.map((k,i)=>`<button class="chip" data-${key}="${esc(k)}" aria-pressed="${k===cat()}" style="--c:${RAMP[i%RAMP.length]}"><span class="dot"></span>${esc(k)}<span class="n">${bank()[k].length}</span></button>`).join('')}</div>`;
@@ -670,7 +664,7 @@ function renderCard(){
       <span class="mean" style="font-size:17px">${esc(bt?bt.kr:it[B.EN])}</span>
       ${it[B.EXC]?`<div class="ex"><div class="s">${esc(it[B.EXC])}</div><div class="p">${esc(it[B.EXP])}</div><div class="m">${bt&&bt.exKr?esc(bt.exKr):'<span style=\'opacity:.5\'>예문 번역 대기 중 — AI 번역을 돌려 보세요</span>'}</div></div>`
           :(bt?`<div class="ex"><div class="s">${esc(bt.ex)}</div><div class="p">${esc(bt.exP)}</div><div class="m">${esc(bt.exKr)}</div></div>`
-             :`<div class="note" style="font-size:11.5px">이 단어는 예문 말뭉치에 없어요. AI 번역을 돌리면 새로 만들어 드려요.</div>`)}
+             :`<div class="note" style="font-size:11.5px">이 단어는 예문이 없어요.</div>`)}
       <span class="hint">눌러서 단어 보기</span>`;
   } else {
     front=`<span class="word">${esc(it[E.W])}</span><span class="hint">눌러서 뜻·예문 보기</span>`;
@@ -1057,10 +1051,7 @@ function drawContext(){
   let html='';
   if(S.main==='bank'){
     const doneCount=Object.keys(AI).length, allDone=doneCount>=BANK.length;
-    html=`<div class="scroller">${TIERS.map(v=>`<button class="chip" data-blv="${v}" aria-pressed="${v===S.blv}" style="--c:${RAMP[(v-1)%RAMP.length]}"><span class="dot"></span>${(v-1)*500+1}–${v*500}위<span class="n">${BANK.filter(b=>b[B.T]===v).length}</span></button>`).join('')}</div>
-      <div class="metarow"><span>AI 번역 진행</span><span><b>${doneCount.toLocaleString()}</b> / ${BANK.length.toLocaleString()}</span></div>
-      <div class="meter"><i style="width:${BANK.length?doneCount/BANK.length*100:0}%"></i></div>
-      <button class="btn ${translating?'ghost':'solid'}" id="trbtn" style="margin-bottom:10px" ${(!translating&&allDone)?'disabled':''}>${translating?'번역 중지 ⏸':(allDone?'번역 완료 ✓':'AI로 뜻·예문 채우기 ▶')}</button>`;
+    html=`<div class="scroller">${TIERS.map(v=>`<button class="chip" data-blv="${v}" aria-pressed="${v===S.blv}" style="--c:${RAMP[(v-1)%RAMP.length]}"><span class="dot"></span>${(v-1)*500+1}–${v*500}위<span class="n">${BANK.filter(b=>b[B.T]===v).length}</span></button>`).join('')}</div>`;
   } else {
     const list=S.main==='word'?WCATS:GCATS, key=S.main==='word'?'wcat':'gcat';
     html=`<div class="scroller">${list.map((k,i)=>`<button class="chip" data-${key}="${esc(k)}" aria-pressed="${k===cat()}" style="--c:${RAMP[i%RAMP.length]}"><span class="dot"></span>${esc(k)}<span class="n">${bank()[k].length}</span></button>`).join('')}</div>`;
@@ -1100,7 +1091,7 @@ function renderCard(){
       <span class="mean" style="font-size:17px">${esc(bt?bt.kr:it[B.EN])}</span>
       ${it[B.EXS]?`<div class="ex"><div class="s">${esc(it[B.EXS])}</div><div class="m">${bt&&bt.exKr?esc(bt.exKr):'<span style=\'opacity:.5\'>예문 번역 대기 중 — AI 번역을 돌려 보세요</span>'}</div></div>`
           :(bt&&bt.ex?`<div class="ex"><div class="s">${esc(bt.ex)}</div><div class="m">${esc(bt.exKr)}</div></div>`
-             :`<div class="note" style="font-size:11.5px">이 단어는 예문 말뭉치에 없어요. AI 번역을 돌리면 새로 만들어 드려요.</div>`)}
+             :`<div class="note" style="font-size:11.5px">이 단어는 예문이 없어요.</div>`)}
       <span class="hint">눌러서 단어 보기</span>`;
   } else {
     front=`<span class="word">${esc(it[E.W])}</span><span class="hint">눌러서 뜻·예문 보기</span>`;

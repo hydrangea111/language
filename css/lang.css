@@ -381,3 +381,10 @@ body.lang-es .foot .wrap{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 
 /* 상단 언어 막대는 바깥 탭이 대신한다 */
 .langbar{display:none!important}
+
+/* 소리 듣기 버튼 */
+.tts{display:inline-grid;place-items:center;width:26px;height:26px;margin-left:8px;padding:0;vertical-align:middle;border:1px solid currentColor;border-color:color-mix(in srgb,currentColor 30%,transparent);border-radius:50%;background:transparent;color:inherit;font-size:13px;line-height:1;cursor:pointer;opacity:.75}
+.tts:hover{opacity:1;background:color-mix(in srgb,currentColor 10%,transparent)}
+.word .tts,.glyph .tts,.qbig .tts{font-size:15px;width:32px;height:32px}
+.tts-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:rgba(20,22,26,.92);color:#fff;font-size:13px;padding:9px 16px;border-radius:99px;z-index:50}
+.tts-toast[hidden]{display:none}

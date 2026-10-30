@@ -136,7 +136,7 @@
     const rows = all.slice(0, S.shown).map(x => `<div class="row">
       <div class="g${x.kind === 's' ? ' s' : ''}">${esc(x.front)}</div>
       <div class="t"><b>${esc(x.kind === 's' ? meaning(x) : x.jy)}</b><i>${esc(short(x.kind === 's' ? x.jy : meaning(x)))}</i></div>
-      <button class="mk${known[x.id] ? ' on' : ''}" data-id="${esc(x.id)}" aria-label="익힘 표시">✓</button></div>`).join('');
+      <button class="rsp" data-say="${esc(x.front)}" aria-label="소리 듣기">🔊</button><button class="mk${known[x.id] ? ' on' : ''}" data-id="${esc(x.id)}" aria-label="익힘 표시">✓</button></div>`).join('');
     view.innerHTML = `<input class="search" id="search" placeholder="한자, 발음, 뜻으로 찾기" value="${esc(S.q)}">
       ${rows || '<div class="empty">찾는 항목이 없어요.</div>'}
       ${all.length > S.shown ? `<button class="more" id="more">더 보기 (${all.length - S.shown}개 남음)</button>` : ''}`;
@@ -158,15 +158,19 @@
   }
 
   document.addEventListener('click', e => {
+    const row = e.target.closest('.row');                                  // 목록 행, 퀴즈 글자: 눌러도 읽는다
+    if (row && !e.target.closest('button, input')) { const r = row.querySelector('.rsp'); if (r) speak(r.dataset.say); }
+    if (e.target.closest('.qbox') && !e.target.closest('button, input')) speak(view.dataset.speak || '');
     const t = e.target.closest('button, input');
     if (!t) return;
     if (t.dataset.main) { S.main = t.dataset.main; S.tier = 1; S.i = 0; S.flip = false; S.shown = 60; S.q = ''; render(); }
     else if (t.dataset.mode) { S.mode = t.dataset.mode; S.i = 0; S.flip = false; S.shown = 60; render(); }
     else if (t.dataset.tier) { S.tier = +t.dataset.tier; S.i = 0; S.flip = false; render(); }
-    else if (t.id === 'card') { S.flip = !S.flip; t.classList.toggle('flipped', S.flip); }
+    else if (t.id === 'card') { S.flip = !S.flip; t.classList.toggle('flipped', S.flip); speak((list()[S.i] || {}).front || ''); }
     else if (t.id === 'prev') go(-1);
     else if (t.id === 'next') go(1);
     else if (t.id === 'speak') speak(view.dataset.speak || (list()[S.i] || {}).front || '');
+    else if (t.classList.contains('rsp')) speak(t.dataset.say);
     else if (t.id === 'more') { S.shown += 60; renderList(); }
     else if (t.classList.contains('mk')) { const id = t.dataset.id; if (known[id]) delete known[id]; else known[id] = 1; save(); t.classList.toggle('on'); drawControls(); }
     else if (t.dataset.act) {
